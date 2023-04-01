@@ -4,6 +4,12 @@ import 'package:url_launcher/url_launcher.dart';
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
 
+  Future<void> _launchUrl(Uri _url) async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,11 +43,10 @@ class Welcome extends StatelessWidget {
           //   ),
           // ),
 
-          Positioned(
-            // left: 125,
-            // top: 250,
-            // width: 130,
-            // height: 130,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/second');
+            },
             child: CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage('assets/pp.jpg'),
@@ -77,35 +82,42 @@ class Welcome extends StatelessWidget {
           ),
           // Phone Number
 
-          Card(
-            margin: EdgeInsets.all(10.0),
-            child: ListTile(
-              leading: Icon(
-                Icons.phone,
-                color: Color.fromARGB(255, 104, 0, 79),
-              ),
-              title: Text(
-                '+43 234 567 89',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 20.0,
+          TextButton(
+            onPressed: () {
+              launchUrl(Uri.parse('tel:+1-555-010-999'));
+            },
+            child: Card(
+              child: ListTile(
+                leading: Icon(
+                  Icons.phone,
+                  color: Color.fromARGB(255, 104, 0, 79),
+                ),
+                title: Text(
+                  '+43 234 567 89',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 20.0,
+                  ),
                 ),
               ),
             ),
           ),
           // Email
-          Card(
-            margin: EdgeInsets.all(10.0),
-            child: ListTile(
-              leading: Icon(
-                Icons.email,
-                color: Color.fromARGB(255, 104, 0, 79),
-              ),
-              title: Text(
-                'alaa@gmail.com',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.black87,
+          InkWell(
+            onTap: () {},
+            child: Card(
+              margin: EdgeInsets.all(10.0),
+              child: ListTile(
+                leading: Icon(
+                  Icons.email,
+                  color: Color.fromARGB(255, 104, 0, 79),
+                ),
+                title: Text(
+                  'alaa@gmail.com',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
             ),
